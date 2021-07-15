@@ -11,8 +11,14 @@ import java.util.stream.Stream;
 public class GitHookApplication {
 
     public static void main(String[] args) {
-        String[] nomes = {"Pedro", "Marcos", "João", "Victor"};
+        BarraDeCarregamento2 barraDeCarregamento2 = new BarraDeCarregamento2();
+        BarraDeCarregamento barraDeCarregamento = new BarraDeCarregamento();
+        barraDeCarregamento2.start();
+        
 
+        //Lambda
+        String[] nomes = {"Pedro", "Marcos", "João", "Victor"};
+        Integer[] numeros = {1, 2, 3, 4, 5, 6};
         //não retorna nada interface funcional
         Consumer<String> imprimaUmaFrase = System.out::println;
         imprimaUmaFrase.accept("Oi");
@@ -44,6 +50,9 @@ public class GitHookApplication {
         //Foreach por stream
         Stream.of(nomes).forEach(System.out::println);
 
+        Stream.of(numeros).map(nun -> nun * 2).forEach(System.out::println);
+
+
     }
 
 }
@@ -57,9 +66,32 @@ class Pessoa {
         idade = 19;
     }
 
+
     @Override
     public String toString() {
         return String.format("nome : %s, idade : %d", nome, idade);
+    }
+}
+
+class GerarPDF implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("GerarPDF");
+    }
+}
+
+class BarraDeCarregamento2 extends Thread {
+    @Override
+    public void run() {
+        super.run();
+        System.out.println("Rodei : " + this.getName());
+    }
+}
+
+class BarraDeCarregamento implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Looding.....");
     }
 }
 ```
